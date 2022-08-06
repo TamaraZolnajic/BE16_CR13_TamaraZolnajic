@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+   <div class="container mx-auto justify-contnet-center text-center">
+    
+    <p class="title mt-5 text-center text-danger display-2 mb-5">{{event.name}}</p>
+    <ul class="list-group">       
+    <img src="{{asset('pictures/' ~ event.photo)}}" style="width:700px; height:500px; margin:auto">
+    <p class=" mt-4">Start Date: <strong> {{event.date|date('F j, Y, g:i a')}} </strong> </p>
+        <p class="mt-2">Capacity: {{event.capacity}}</p>       
+        <p class="mt-2">E-mail: {{event.email}}</p>
+        <p class="mt-2">Phone Number: {{event.phone}}</p>
+        <p class="mt-2">URL: {{event.url}}</p>
+        <p class="mt-2">Type: {{event.type}}</p>
+        <p class="mt-2">Address: {{event.adress}}</p>
+        <p class="mt-2">City: {{event.city}}</p>
+    
+    
+    </ul>
+    <p class="display-5">
+        {{event.description}}
+    </p><br>
+    <a class="btn btn-danger text-light w-50 mb-5" href="/">Back to Manage</a>
+   </div>
+{% endblock %}
