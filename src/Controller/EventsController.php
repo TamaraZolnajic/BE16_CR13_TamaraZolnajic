@@ -23,7 +23,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class EventsController extends AbstractController
 {
-    #[Route('/', name: 'events')]
+    #[Route('/index', name: 'events')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $events = $doctrine->getRepository(Events::class)->findAll();
@@ -131,13 +131,14 @@ class EventsController extends AbstractController
            'controller_name' => 'EventsController',
        ]);
    } 
-   #[Route('/home', name: 'home')]
-   public function home(): Response
-   {
-       return $this->render('events/home.html.twig', [
-           'controller_name' => 'EventsController',
-       ]);
-   } 
+//    #[Route('/home', name: 'events')]
+//     public function home(ManagerRegistry $doctrine): Response
+//     {
+//         $events = $doctrine->getRepository(Events::class)->findAll();
+//         return $this->render('events/home.html.twig', [
+//             'controller_name' => 'EventsController', "events" => $events
+//         ]);
+//     }
    #[Route('/contact', name: 'contact')]
    public function contact(): Response
    {
