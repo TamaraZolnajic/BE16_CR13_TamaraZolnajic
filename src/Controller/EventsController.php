@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -9,8 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Service\FileUploader;
 use App\Repository\EventsRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,6 +31,16 @@ class EventsController extends AbstractController
             'controller_name' => 'EventsController', "events" => $events
         ]);
     }
+
+    #[Route('/', name: 'eventsg')]
+    public function home(ManagerRegistry $doctrine): Response
+    {
+        $eventsg = $doctrine->getRepository(Events::class)->findAll();
+        return $this->render('events/home.html.twig', [
+            'controller_name' => 'EventsController', "events" => $eventsg
+        ]);
+    }
+
     #[Route('/create', name: 'create')]
     public function create(Request $request, EventsRepository $eventsRepository, ManagerRegistry $doctrine, FileUploader $fileUploader): Response
     {
@@ -40,10 +50,10 @@ class EventsController extends AbstractController
         $form -> handleRequest($request);
         if ($form -> isSubmitted() && $form -> isValid()) {
 
-            $pictureFile = $form->get('picture')->getData();
+            $pictureFile = $form->get('photo')->getData();
             if($pictureFile){
                 $pictureFileName = $fileUploader->upload($pictureFile);
-                $event->setPicture($pictureFileName);
+                $event->setPhoto($pictureFileName);
             }
             // $now = new \DateTime('now');
             $event = $form -> getData();
@@ -64,12 +74,9 @@ class EventsController extends AbstractController
         return $this->render('events/create.html.twig', [
             'form' => $form->createView()
         ]);
+    }
 
-
-
-
-
-    }#[Route('/edit/{id}', name: 'edit')]
+    #[Route('/edit/{id}', name: 'edit')]
     public function edit(Request $request, ManagerRegistry $doctrine, $id): Response
     {
         $event = $doctrine -> getRepository(Events::class) -> find($id);
@@ -115,15 +122,7 @@ class EventsController extends AbstractController
       );
       return $this->redirectToRoute('events');
 }
-#[Route('/findby/{type}', name: 'findby')]
-    public function findby(ManagerRegistry $doctrine, $type): Response
-    {
-        $repository = $doctrine -> getRepository(Events::class);
-        $event = $repository -> findby(['type' => $type]);
-        return $this->render('events/findby.html.twig', [
-            'controller_name' => 'EventsController', "event" => $event
-        ]);
-    }
+
     #[Route('/about', name: 'about')]
    public function about(): Response
    {
@@ -131,14 +130,8 @@ class EventsController extends AbstractController
            'controller_name' => 'EventsController',
        ]);
    } 
-//    #[Route('/home', name: 'events')]
-//     public function home(ManagerRegistry $doctrine): Response
-//     {
-//         $events = $doctrine->getRepository(Events::class)->findAll();
-//         return $this->render('events/home.html.twig', [
-//             'controller_name' => 'EventsController', "events" => $events
-//         ]);
-//     }
+   
+
    #[Route('/contact', name: 'contact')]
    public function contact(): Response
    {

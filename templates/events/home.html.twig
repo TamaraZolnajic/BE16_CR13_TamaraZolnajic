@@ -1,36 +1,15 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Jungle{% endblock %}
+{% block title %}ViennaEvents{% endblock %}
 
 {% block body %}
   
   <div class="caption text-center align-items-center">
-    <h1 class="wwkin text-center">Welcome to the Jungle</h1>
+    <p class="title mt-5 p-5 text-center text-danger display-2"> Find the right event for yourself:</p>
   </div>
-  <div class="shdw"></div>
-  <h1 class="text-center bored">If you are bored at home, </br> find something for yourself</h1>
-
-  <h1 class="text-center ev">Events</h1>
   
-  <div class="container row">
-    <button type="button" class="collapsible col-12 button">Type</button>
-    <div class="pok">
-      <button type="button" class="col-3 button">
-        <a class="link2" href="music">Music</a>
-      </button>
-      <button type="button" class="col-3 button">
-        <a class="link2" href="dance">Dance</a>
-      </button>
-      <button type="button" class="col-3 button">
-        <a class="link2" href="conferences">Conferences</a>
-      </button>
-    </div>
-  </div>
-
-
-
-  <div id="items">
+    <div>
 
     <div class="row text-center dit justify-content-center">
 
@@ -38,17 +17,17 @@
             {% for event in events %} 
 
                 <div class='container col-lg-4 col-md-6 col-sm-12 nsl justify-content-center'>
-                    <div class='boox col-12 '>
-                        <a href="/details/{{event.id}}" class="btn eddt">
-                            <img class="im-size"  src="{{asset('pictures/' ~ event.photo )}}">
+                    <div class=' col-12 '>
+                        <a href="/details/{{event.id}}" class="btn ">
+                            <img style="width:400px; height: 280px"  src="{{asset('pictures/' ~ event.photo )}}">
                         </a> 
                     </div>
 
-                    <div class='nsl2'>
-                        <a href="/details/{{event.id}}" class="btn eddt">
-                            <h4>{{event.eventsName}}</h4>
-                            <h4 class="inft">{{event.type}}</h4>
-                            <h6 class="inft">{{event.date|date()}}</h6> 
+                    <div>
+                        <a href="/details/{{event.id}}" class="btn">
+                            <h3 class="title text-center text-danger">{{event.name}}</h3>
+                            <h5>{{event.type}}</h5>
+                            <h6 class="mb-5">{{event.date|date()}}</h6> 
                         </a> 
                     </div>
                 </div>

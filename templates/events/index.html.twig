@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
+{% block title %}Manage Events{% endblock %}
+
 {% block body %}
       <div class="container mx-auto">
-<h1 class="page-header text-center m-5"> Manage all the Events </h1>
-   <table class="table table-striped m-5">
+<p class="title mt-5 text-center text-danger display-2 mb-5"> Manage all the Events </p>
+   <table class="table table-bordered table-hover m-5">
        <thead>
            <tr >
-               <th class="p-4">ID</th>
+               <th class="p-4 table-dark"><i>ID<i></th>
                <th class="p-4">Events</th>
                <th class="p-4">Start Date</th>
                <th class="p-4">Type</th>
@@ -19,7 +21,7 @@
                <td class="p-4">{{event.name}}</td>
                 <td class="p-4">{{event.date|date('F j, Y, g:i a')}}</td>
                <td class="p-4">{{event.type}}</td>
-               <td class="p-4"> <a href="/details/{{event.id}}" class="btn btn-success">View</a>     
+               <td class="p-4"> <a href="/details/{{event.id}}" class="btn btn-success">Details</a>     
                    <a href="/edit/{{event.id}}" class="btn btn-primary">Edit</a>
                    <a href="/delete/{{event.id}}" class="btn btn-danger">Delete</a>       
                </td>
